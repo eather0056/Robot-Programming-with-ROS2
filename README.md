@@ -110,7 +110,18 @@ sudo apt-get install ros-foxy-gazebo-dev
 sudo apt-get install ros-foxy-control-toolbox
 sudo apt-get install ros-foxy-gazebo-ros
 ```
+### Additional Dependencies
 
+Activate workspace as an overlay
+
+```bash
+source bookros2_ws/install/setup.bash
+```
+Activating by default when opening a terminal
+
+```bash
+echo "source ~/bookros2_ws/install/setup.bash" >> ~/.bashrc
+```
 ## Usage
 
 After installation, you can explore the various packages and launch files included in this repository. Each chapter of the book corresponds to specific packages and examples. Refer to the book for detailed explanations and instructions on running the examples.
