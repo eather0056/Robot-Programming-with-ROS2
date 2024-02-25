@@ -10,7 +10,7 @@ Welcome to the Robot Programming with ROS2 repository. This repository contains 
 
 
 
-Order the book here: [Routledge](https://www.routledge.com/A-Concise-Introduction-to-Robot-Programming-with-ROS2)
+Order the book here: [Book](https://www.routledge.com/A-Concise-Introduction-to-Robot-Programming-with-ROS2/Rico/p/book/9781032264653#:~:text=A%20Concise%20Introduction%20to%20Robot%20Programming%20with%20ROS2%20provides%20the,the%20new%20version%20of%20ROS.)
 
 ## Original Repository
 
