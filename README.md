@@ -72,8 +72,9 @@ rosdep update
 ```bash
 mkdir -p ~/bookros2_ws/src
 cd ~/bookros2_ws/src
-git clone -b foxy-devel https://github.com/fmrico/bookros2.git
+git clone https://github.com/eather0056/Robot-Programming-with-ROS2.git
 ```
+<!-- git clone -b foxy-devel https://github.com/fmrico/bookros2.git -->
 
 ### 8. Import Third-Party Packages
 
