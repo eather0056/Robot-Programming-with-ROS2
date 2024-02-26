@@ -81,7 +81,7 @@ git clone https://github.com/eather0056/Robot-Programming-with-ROS2.git
 ```bash
 cd ~/bookros2_ws/src
 sudo apt install python3-vcstool
-vcs import . < book_ros2/third_parties.repos
+vcs import . < Robot-Programming-with-ROS2/third_parties.repos
 ```
 
 ### 9. Install Dependencies and Build Packages
