@@ -109,6 +109,7 @@ sudo apt-get install ros-foxy-realtime-tools
 sudo apt-get install ros-foxy-gazebo-dev
 sudo apt-get install ros-foxy-control-toolbox
 sudo apt-get install ros-foxy-gazebo-ros
+sudo apt-get install qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5svg5-dev
 ```
 ### Additional Dependencies
 
