@@ -18,22 +18,35 @@ This repository extends and provides solutions to some issues found in the origi
 
 ## Requirements
 
-This repository is tested and maintained for the `foxy-devel` branch, requiring:
+This repository is tested and maintained for the `Humble Hawksbill` branch, requiring:
 
-- Ubuntu 20.04 LTS
-- ROS2 Foxy Fitzroy
+- Ubuntu 22.04 LTS
+- ROS2 [Humble Hawksbill](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
 
 ## Installation
 
 Follow these steps to set up your environment and start with the robot programming projects:
 
-### 1. Install Necessary Packages
+### Set locale
+```bash
+locale  # check for UTF-8
+
+sudo apt update && sudo apt install locales
+sudo locale-gen en_US en_US.UTF-8
+sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+locale  # verify settings
+```
+### Install Necessary Packages
 
 ```bash
-sudo apt update && sudo apt install curl gnupg2 lsb-release
+sudo apt install software-properties-common
+sudo add-apt-repository universe
+sudo apt update && sudo apt install curl -y
 ```
 
-### 2. Add ROS 2 Repository Key
+### Add ROS 2 Repository Key
 
 ```bash
 sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -42,32 +55,35 @@ sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o
 ### 3. Add ROS 2 Repository to Sources List
 
 ```bash
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(source /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
 ```
 
 ### 4. Install ROS 2 Foxy Packages
 
 ```bash
 sudo apt-get update
-sudo apt install ros-foxy-desktop
+sudo apt upgrade
+sudo apt install ros-humble-desktop
 ```
 
 ### 5. Environment Setup
 
 ```bash
-source /opt/ros/foxy/setup.bash
-echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
+source /opt/ros/humble/setup.bash
+echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc
 ```
-
-### 6. Initialize rosdep
+### Dependencies for Building Packages
+```bash
+sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential python3-vcstool python3-colcon-common-extensions
+```
+### Initialize rosdep
 
 ```bash
-sudo apt install python3-rosdep2
 sudo rosdep init
 rosdep update
 ```
 
-### 7. Create a ROS 2 Workspace
+### Create a ROS 2 Workspace
 
 ```bash
 mkdir -p ~/bookros2_ws/src
@@ -76,52 +92,46 @@ git clone https://github.com/eather0056/Robot-Programming-with-ROS2.git
 ```
 <!-- git clone -b foxy-devel https://github.com/fmrico/bookros2.git -->
 
-### 8. Import Third-Party Packages
+### Import Third-Party Packages
 
 ```bash
 cd ~/bookros2_ws/src
-sudo apt install python3-vcstool
 vcs import . < Robot-Programming-with-ROS2/third_parties.repos
 ```
 
-### 9. Install Dependencies and Build Packages
+### Install Dependencies and Build Packages
 
 ```bash
 cd ~/bookros2_ws
 rosdep install --from-paths src --ignore-src -r -y
 sudo apt update
-sudo apt install python3-colcon-common-extensions
 colcon build --symlink-install
 ```
 
 ### Additional Dependencies
 
-If you encounter any missing dependencies, you may need to install them manually:
-
-```bash
-sudo apt install ros-foxy-diagnostic-updater
-sudo apt-get install ros-foxy-control-msgs
-sudo apt-get install ros-foxy-xacro
-sudo apt-get install ros-foxy-behaviortree-cpp-v3
-sudo apt-get install ros-foxy-nav2-msgs
-sudo apt-get install ros-foxy-vision-msgs
-sudo apt-get install ros-foxy-realtime-tools
-sudo apt-get install ros-foxy-gazebo-dev
-sudo apt-get install ros-foxy-control-toolbox
-sudo apt-get install ros-foxy-gazebo-ros
-sudo apt-get install qtbase5-dev qtdeclarative5-dev qtmultimedia5-dev libqt5svg5-dev
-```
-### Additional Dependencies
-
 Activate workspace as an overlay
 
 ```bash
-source bookros2_ws/install/setup.bash
+source ~/bookros2_ws/install/setup.bash
 ```
 Activating by default when opening a terminal
 
 ```bash
 echo "source ~/bookros2_ws/install/setup.bash" >> ~/.bashrc
+```
+
+If you want to skip rebuilding packages that haven't had any changes since the last build in order to save time, you can use
+
+```bash
+colcon build --symlink-install --packages-up-to <package_name>
+```
+You must re-source the workspace since you have created a new program.
+
+See the messages that are published
+```bash
+ros2 run rqt_console rqt_console
+ros2 run rqt_graph rqt_graph
 ```
 ## Usage
 

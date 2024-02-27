@@ -50,7 +50,9 @@ void
 BumpGoNode::control_cycle()
 {
   // Do nothing until the first sensor read
-  if (last_scan_ == nullptr) {return;}
+  if (last_scan_ == nullptr) {
+    return;
+  }
 
   geometry_msgs::msg::Twist out_vel;
 
@@ -61,10 +63,10 @@ BumpGoNode::control_cycle()
       if (check_forward_2_stop()) {
         go_state(STOP);
       }
+
       if (check_forward_2_back()) {
         go_state(BACK);
       }
-
       break;
     case BACK:
       out_vel.linear.x = -SPEED_LINEAR;
@@ -72,7 +74,6 @@ BumpGoNode::control_cycle()
       if (check_back_2_turn()) {
         go_state(TURN);
       }
-
       break;
     case TURN:
       out_vel.angular.z = SPEED_ANGULAR;

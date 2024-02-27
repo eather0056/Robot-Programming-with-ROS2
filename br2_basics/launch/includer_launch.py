@@ -25,9 +25,9 @@ def generate_launch_description():
 
     return LaunchDescription([
         IncludeLaunchDescription(
-          PythonLaunchDescriptionSource(os.path.join(
-              get_package_share_directory('br2_basics'),
-              'launch',
-              'pub_sub_v2_launch.py'))
+            PythonLaunchDescriptionSource(os.path.join(
+                get_package_share_directory('br2_basics'),
+                'launch',
+                'pub_sub_v2_launch.py'))
         )
     ])
