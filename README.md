@@ -21,8 +21,8 @@ This repository extends and provides solutions to some issues found in the origi
 This repository is tested and maintained for the `foxy-devel` branch, requiring:
 
 - Ubuntu 20.04 LTS
-- ROS2 Foxy Fitzroy
-
+- ROS2 Foxy Fitzroy 
+`You may encounter a few issues in this branch, so it's not recommended for absolute beginners.`
 ## Installation
 
 Follow these steps to set up your environment and start with the robot programming projects:
