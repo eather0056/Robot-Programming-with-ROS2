@@ -56,9 +56,11 @@ class BumpGoNode(Node):
         self.timer = self.create_timer(0.05, self.control_cycle)
 
     def scan_callback(self, msg):
+        #self.get_logger().info('Received scan data')
         self.last_scan = msg
 
     def control_cycle(self):
+        #self.get_logger().info('Control cycle called')
         if self.last_scan is None:
             return
 
@@ -87,6 +89,11 @@ class BumpGoNode(Node):
         elif self.state == self.STOP:
             if self.check_stop_2_forward():
                 self.go_state(self.FORWARD)
+
+        # Example of logging state and velocity
+        #self.get_logger().info(f'Current state: {self.state}')
+        # After setting out_vel based on the state
+        #self.get_logger().info(f'Publishing velocity: linear={out_vel.linear.x}, angular={out_vel.angular.z}')
 
         self.vel_pub.publish(out_vel)
 

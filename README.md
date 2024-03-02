@@ -29,14 +29,14 @@ Follow these steps to set up your environment and start with the robot programmi
 
 ### Set locale
 ```bash
-locale  # check for UTF-8
+locale
 
 sudo apt update && sudo apt install locales
 sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-locale  # verify settings
+locale
 ```
 ### Install Necessary Packages
 
@@ -132,6 +132,19 @@ See the messages that are published
 ```bash
 ros2 run rqt_console rqt_console
 ros2 run rqt_graph rqt_graph
+```
+
+if any unwaned node running and overring your current mssages then you migh need to terminate the process ID(`PID`)
+```bash
+kill -SIGINT <PID>
+```
+You can find running processes by
+```bash
+ps aux
+```
+or specific one like `joystick_relay`
+```bash
+ps aux | grep joystick_relay
 ```
 ## Usage
 
