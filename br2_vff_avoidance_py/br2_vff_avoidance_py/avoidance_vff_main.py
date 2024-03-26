@@ -64,23 +64,34 @@ class AvoidanceNode(Node):
 
     def get_debug_vff(self, vff_vectors):
         colors = {'RED': [1.0, 0.0, 0.0, 1.0], 'GREEN': [0.0, 1.0, 0.0, 1.0], 'BLUE': [0.0, 0.0, 1.0, 1.0]}
+        vector_colors = {'attractive': 'BLUE', 'repulsive': 'RED', 'result': 'GREEN'}
         marker_array = MarkerArray()
-        for key, color in colors.items():
-            marker = Marker()
-            marker.header.frame_id = "base_footprint"
-            marker.header.stamp = self.get_clock().now().to_msg()
-            marker.type = Marker.ARROW
-            marker.action = Marker.ADD
-            marker.scale.x = 0.05
-            marker.scale.y = 0.1
-            marker.color.r, marker.color.g, marker.color.b, marker.color.a = color
 
-            start, end = [0.0, 0.0, 0.0], [vff_vectors[key.lower()][0], vff_vectors[key.lower()][1], 0.0]
-            marker.points.append(Point(x=start[0], y=start[1], z=start[2]))
-            marker.points.append(Point(x=end[0], y=end[1], z=end[2]))
+        for key, vector in vff_vectors.items():
+            if key in vector_colors:
+                color_key = vector_colors[key]
+                color = colors[color_key]
+                marker = Marker()
+                marker.header.frame_id = "base_footprint"
+                marker.header.stamp = self.get_clock().now().to_msg()
+                marker.type = Marker.ARROW
+                marker.action = Marker.ADD
+                marker.scale.x = 0.05
+                marker.scale.y = 0.1
+                marker.color.r, marker.color.g, marker.color.b, marker.color.a = color
 
-            marker_array.markers.append(marker)
+                start = Point(x=0.0, y=0.0, z=0.0)
+                end = Point(x=vector[0], y=vector[1], z=0.0)
+                marker.points = [start, end]
+
+                # Setting the ID based on the key might not be unique across subsequent calls,
+                # so consider a different approach if markers need to be distinct across updates.
+                marker.id = hash(key) % 256  # Example approach to ensure a relatively unique, stable ID
+
+                marker_array.markers.append(marker)
+
         return marker_array
+
 
 
 def main(args=None):
