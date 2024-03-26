@@ -2,3 +2,4 @@ Book page 49
     ros2 interface show sensor msgs/msg/LaserScan
 Book page 62
     ros2 run br2_fsm_bumpgo_py bump_go_main --ros-args -r output_vel:=key_vel -r input_scan:=scan_raw -p use_sim_time:=true
+If you face problem building python package you might need to install "pip install setuptools==58.2.0"
